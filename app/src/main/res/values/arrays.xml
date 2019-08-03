@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="male_player1_images">
+        <item>@drawable/im1</item>
+        <item>@drawable/im4</item>
+        <item>@drawable/im5</item>
+        <item>@drawable/im6</item>
+    </array>
+    <array name="male_player2_images">
+        <item>@drawable/im3</item>
+        <item>@drawable/im2</item>
+        <item>@drawable/im7</item>
+        <item>@drawable/im8</item>
+    </array>
+    <array name="male_player3_images">
+        <item>@drawable/im9</item>
+        <item>@drawable/im10</item>
+        <item>@drawable/im11</item>
+        <item>@drawable/im12</item>
+    </array>
+    <array name="male_player4_images">
+        <item>@drawable/im13</item>
+        <item>@drawable/im14</item>
+        <item>@drawable/im15</item>
+        <item>@drawable/im16</item>
+    </array>
+    <array name="player1_images">
+        <item>@drawable/img1</item>
+        <item>@drawable/img2</item>
+        <item>@drawable/img3</item>
+        <item>@drawable/img4</item>
+    </array>
+    <array name="player1_male_names">
+        <item>veer</item>
+        <item>William</item>
+        <item>vipul</item>
+        <item>rahul</item>
+    </array>
+    <array name="player1_names">
+        <item>harneet</item>
+        <item>Ava</item>
+        <item>sonam</item>
+        <item>Emma</item>
+    </array>
+    <array name="player2_images">
+        <item>@drawable/img6</item>
+        <item>@drawable/img5</item>
+        <item>@drawable/img7</item>
+        <item>@drawable/img8</item>
+    </array>
+    <array name="player2_male_names">
+        <item>Liam</item>
+        <item>amit</item>
+        <item>chintu</item>
+        <item>divya</item>
+    </array>
+    <array name="player2_names">
+        <item>bubbly</item>
+        <item>Mia</item>
+        <item>suman</item>
+        <item>Harper</item>
+    </array>
+    <array name="player3_images">
+        <item>@drawable/img9</item>
+        <item>@drawable/img10</item>
+        <item>@drawable/img11</item>
+        <item>@drawable/img12</item>
+    </array>
+    <array name="player3_male_names">
+        <item>dherya</item>
+        <item>sanket</item>
+        <item>Michael</item>
+        <item>saket</item>
+    </array>
+    <array name="player3_names">
+        <item>Lily</item>
+        <item>jhanvi</item>
+        <item>priyanka</item>
+        <item>Nora</item>
+    </array>
+    <array name="player4_images">
+        <item>@drawable/img13</item>
+        <item>@drawable/img14</item>
+        <item>@drawable/img15</item>
+        <item>@drawable/img16</item>
+    </array>
+    <array name="player4_male_names">
+        <item>raj</item>
+        <item>Ethan</item>
+        <item>riyarth</item>
+        <item>mahir</item>
+    </array>
+    <array name="player4_names">
+        <item>Ellie</item>
+        <item>janny</item>
+        <item>queen</item>
+        <item>aana</item>
+    </array>
+    <array name="player5_male_names">
+        <item>harpreet</item>
+        <item>Luke</item>
+        <item>akash</item>
+        <item>vinu</item>
+    </array>
+    <array name="player5_names">
+        <item>Bella</item>
+        <item>chetana</item>
+        <item>dipti</item>
+        <item>fatima</item>
+    </array>
+    <array name="player6_male_names">
+        <item>love</item>
+        <item>Isaac</item>
+        <item>shubham</item>
+        <item>pradeep</item>
+    </array>
+    <array name="player6_names">
+        <item>Maya</item>
+        <item>honey</item>
+        <item>isha</item>
+        <item>jyoti</item>
+    </array>
+    <array name="player7_male_names">
+        <item>vikash</item>
+        <item>priyank</item>
+        <item>Ryan</item>
+        <item>karan</item>
+    </array>
+    <array name="player7_names">
+        <item>Naomi</item>
+        <item>lovely</item>
+        <item>mahima</item>
+        <item>nirja</item>
+    </array>
+    <array name="player8_male_names">
+        <item>Jordan</item>
+        <item>sanjay</item>
+        <item>Adrian</item>
+        <item>sanam</item>
+    </array>
+    <array name="player8_names">
+        <item>Sofia</item>
+        <item>cherry</item>
+        <item>sapna</item>
+        <item>laila</item>
+    </array>
+</resources>
