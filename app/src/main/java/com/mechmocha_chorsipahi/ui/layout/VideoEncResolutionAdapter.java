@@ -3,14 +3,16 @@ package com.mechmocha_chorsipahi.ui.layout;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import io.agora.openvcall.R;
-import io.agora.openvcall.model.ConstantApp;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.mechmocha_chorsipahi.R;
+import com.mechmocha_chorsipahi.model.ConstantApp;
+
 
 public class VideoEncResolutionAdapter extends RecyclerView.Adapter {
     private Context mContext;

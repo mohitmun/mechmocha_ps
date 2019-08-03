@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 28
     buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "com.mechmocha_chorsipahi"
-        minSdkVersion 14
-        targetSdkVersion 29
+        minSdkVersion 16
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -21,14 +21,23 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
-    implementation 'io.agora.rtc:full-sdk:2.4.1'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'org.slf4j:slf4j-api:1.7.21'
+    implementation 'io.agora.rtc:full-sdk:2.4.1'
+    implementation 'com.github.tony19:logback-android-core:1.1.1-4'
+    implementation('com.github.tony19:logback-android-classic:1.1.1-4') {
+        // workaround issue #73
+        exclude group: 'com.google.android', module: 'android'
+    }
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.6.3'
 }

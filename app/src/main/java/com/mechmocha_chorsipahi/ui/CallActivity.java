@@ -8,9 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +21,27 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.mechmocha_chorsipahi.R;
+import com.mechmocha_chorsipahi.model.AGEventHandler;
+import com.mechmocha_chorsipahi.model.ConstantApp;
+import com.mechmocha_chorsipahi.model.DuringCallEventHandler;
+import com.mechmocha_chorsipahi.model.Message;
+import com.mechmocha_chorsipahi.model.User;
+import com.mechmocha_chorsipahi.propeller.Constant;
+import com.mechmocha_chorsipahi.propeller.UserStatusData;
+import com.mechmocha_chorsipahi.propeller.VideoInfoData;
+import com.mechmocha_chorsipahi.propeller.ui.RecyclerItemClickListener;
+import com.mechmocha_chorsipahi.propeller.ui.RtlLinearLayoutManager;
+import com.mechmocha_chorsipahi.ui.layout.GridVideoViewContainer;
+import com.mechmocha_chorsipahi.ui.layout.InChannelMessageListAdapter;
+import com.mechmocha_chorsipahi.ui.layout.MessageListDecoration;
+import com.mechmocha_chorsipahi.ui.layout.SmallVideoViewAdapter;
+import com.mechmocha_chorsipahi.ui.layout.SmallVideoViewDecoration;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,22 +49,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import io.agora.openvcall.R;
-import io.agora.openvcall.model.AGEventHandler;
-import io.agora.openvcall.model.ConstantApp;
-import io.agora.openvcall.model.DuringCallEventHandler;
-import io.agora.openvcall.model.Message;
-import io.agora.openvcall.model.User;
-import io.agora.openvcall.ui.layout.GridVideoViewContainer;
-import io.agora.openvcall.ui.layout.InChannelMessageListAdapter;
-import io.agora.openvcall.ui.layout.MessageListDecoration;
-import io.agora.openvcall.ui.layout.SmallVideoViewAdapter;
-import io.agora.openvcall.ui.layout.SmallVideoViewDecoration;
-import io.agora.propeller.Constant;
-import io.agora.propeller.UserStatusData;
-import io.agora.propeller.VideoInfoData;
-import io.agora.propeller.ui.RecyclerItemClickListener;
-import io.agora.propeller.ui.RtlLinearLayoutManager;
 import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
@@ -133,7 +135,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
         // programmatically layout ui below of status bar/action bar
         LinearLayout eopsContainer = findViewById(R.id.extra_ops_container);
         RelativeLayout.MarginLayoutParams eofmp = (RelativeLayout.MarginLayoutParams) eopsContainer.getLayoutParams();
-        eofmp.topMargin = getStatusBarHeight() + getActionBarHeight() + getResources().getDimensionPixelOffset(R.dimen.activity_vertical_margin) / 2; // status bar + action bar + divider
+        eofmp.topMargin = getStatusBarHeight() + getActionBarHeight() + getResources().getDimensionPixelOffset(R.dimen.browser_actions_context_menu_max_width) / 2; // status bar + action bar + divider
 
         final String encryptionKey = getIntent().getStringExtra(ConstantApp.ACTION_KEY_ENCRYPTION_KEY);
         final String encryptionMode = getIntent().getStringExtra(ConstantApp.ACTION_KEY_ENCRYPTION_MODE);
@@ -297,8 +299,8 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
     private static final int CALL_OPTIONS_REQUEST = 3222;
 
     public synchronized void showCallOptions() {
-        Intent i = new Intent(this, CallOptionsActivity.class);
-        startActivityForResult(i, CALL_OPTIONS_REQUEST);
+//        Intent i = new Intent(this, CallOptionsActivity.class);
+//        startActivityForResult(i, CALL_OPTIONS_REQUEST);
     }
 
     @Override
@@ -528,7 +530,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
     }
 
     @Override
-    public void onUserJoined(int uid) {
+    public void onUserJoined(final int uid) {
         log.debug("onUserJoined " + (uid & 0xFFFFFFFFL));
 
         runOnUiThread(new Runnable() {
@@ -583,7 +585,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
     }
 
     @Override
-    public void onJoinChannelSuccess(String channel, final int uid, int elapsed) {
+    public void onJoinChannelSuccess(final String channel, final int uid, final int elapsed) {
         log.debug("onJoinChannelSuccess " + channel + " " + (uid & 0xFFFFFFFFL) + " " + elapsed);
 
         runOnUiThread(new Runnable() {

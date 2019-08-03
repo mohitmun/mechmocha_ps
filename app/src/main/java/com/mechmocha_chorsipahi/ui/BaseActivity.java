@@ -7,10 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
@@ -21,15 +17,25 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.mechmocha_chorsipahi.AGApplication;
+import com.mechmocha_chorsipahi.BuildConfig;
+import com.mechmocha_chorsipahi.model.ConstantApp;
+import com.mechmocha_chorsipahi.model.CurrentUserSettings;
+import com.mechmocha_chorsipahi.model.EngineConfig;
+import com.mechmocha_chorsipahi.model.MyEngineEventHandler;
+import com.mechmocha_chorsipahi.model.WorkerThread;
+import com.mechmocha_chorsipahi.propeller.Constant;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
-import io.agora.openvcall.AGApplication;
-import io.agora.openvcall.BuildConfig;
-import io.agora.openvcall.model.*;
-import io.agora.propeller.Constant;
 import io.agora.rtc.RtcEngine;
 
 public abstract class BaseActivity extends AppCompatActivity {

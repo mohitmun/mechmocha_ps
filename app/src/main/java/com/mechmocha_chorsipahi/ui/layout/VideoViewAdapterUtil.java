@@ -7,18 +7,18 @@ import android.view.View;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
 
+import com.mechmocha_chorsipahi.R;
+import com.mechmocha_chorsipahi.propeller.Constant;
+import com.mechmocha_chorsipahi.propeller.UserStatusData;
+import com.mechmocha_chorsipahi.propeller.VideoInfoData;
+import com.mechmocha_chorsipahi.propeller.ui.ViewUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-
-import io.agora.openvcall.R;
-import io.agora.propeller.Constant;
-import io.agora.propeller.UserStatusData;
-import io.agora.propeller.VideoInfoData;
-import io.agora.propeller.ui.ViewUtil;
 
 public class VideoViewAdapterUtil {
 

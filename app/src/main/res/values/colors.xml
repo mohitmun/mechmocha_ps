@@ -21,17 +21,28 @@
     <color name="browser_actions_divider_color">#1e000000</color>
     <color name="browser_actions_text_color">#de000000</color>
     <color name="browser_actions_title_color">#646464</color>
+    <color name="agora_blue">#006AD8</color>
+
+    <color name="colorPrimary">@color/agora_blue</color>
+    <color name="colorPrimaryDark">@color/agora_blue</color>
+
+    <color name="lightColorAccent">#30FF4081</color>
+
+    <!--<color name="dark_black">#CC262626</color>-->
+
+    <color name="transparent_75_white">#ACFFFFFF</color>
+
+    <color name="black_light">#CC222222</color>
+
+    <color name="dark_black">#FF333333</color>
     <color name="button_material_dark">#ff5a595b</color>
     <color name="button_material_light">#ffd6d7d7</color>
     <color name="cardview_dark_background">#ff424242</color>
     <color name="cardview_light_background">#ffffffff</color>
     <color name="cardview_shadow_end_color">#03000000</color>
     <color name="cardview_shadow_start_color">#37000000</color>
-    <color name="colorAccent">#a84f7a</color>
     <color name="colorCardView">#f7f7f7</color>
     <color name="colorIndivateTab">#ffffff</color>
-    <color name="colorPrimary">#f4038c</color>
-    <color name="colorPrimaryDark">#dd0b82</color>
     <color name="design_bottom_navigation_shadow_color">#14000000</color>
     <color name="design_default_color_primary">#3f51b5</color>
     <color name="design_default_color_primary_dark">#303f9f</color>

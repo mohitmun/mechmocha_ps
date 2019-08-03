@@ -2,7 +2,6 @@ package com.mechmocha_chorsipahi.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -15,11 +14,13 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.ActionBar;
+
+import com.mechmocha_chorsipahi.R;
+import com.mechmocha_chorsipahi.model.ConstantApp;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import io.agora.openvcall.R;
-import io.agora.openvcall.model.ConstantApp;
 
 public class MainActivity extends BaseActivity {
 
@@ -59,10 +60,10 @@ public class MainActivity extends BaseActivity {
         });
 
         Spinner encryptionSpinner = (Spinner) findViewById(R.id.encryption_mode);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.encryption_mode_values, R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        encryptionSpinner.setAdapter(adapter);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+//                R.array.encryption_mode_values, R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        encryptionSpinner.setAdapter(adapter);
 
         encryptionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -136,13 +137,13 @@ public class MainActivity extends BaseActivity {
     }
 
     public void forwardToSettings() {
-        Intent i = new Intent(this, SettingsActivity.class);
-        startActivity(i);
+//        Intent i = new Intent(this, SettingsActivity.class);
+//        startActivity(i);
     }
 
     public void onClickDoNetworkTest(View view) {
-        Intent i = new Intent(MainActivity.this, NetworkTestActivity.class);
-        startActivity(i);
+//        Intent i = new Intent(MainActivity.this, NetworkTestActivity.class);
+//        startActivity(i);
     }
 
     @Override

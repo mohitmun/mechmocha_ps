@@ -1,13 +1,14 @@
 package com.mechmocha_chorsipahi.ui.layout;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import io.agora.openvcall.R;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.mechmocha_chorsipahi.R;
 
 public class VideoUserStatusHolder extends RecyclerView.ViewHolder {
     public final RelativeLayout mMaskView;

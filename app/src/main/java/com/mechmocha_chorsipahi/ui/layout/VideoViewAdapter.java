@@ -2,21 +2,22 @@ package com.mechmocha_chorsipahi.ui.layout;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.mechmocha_chorsipahi.R;
+import com.mechmocha_chorsipahi.propeller.UserStatusData;
+import com.mechmocha_chorsipahi.propeller.VideoInfoData;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import io.agora.openvcall.R;
-import io.agora.propeller.UserStatusData;
-import io.agora.propeller.VideoInfoData;
 
 public abstract class VideoViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

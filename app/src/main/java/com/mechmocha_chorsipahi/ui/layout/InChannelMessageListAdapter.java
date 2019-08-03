@@ -1,17 +1,18 @@
 package com.mechmocha_chorsipahi.ui.layout;
 
 import android.app.Activity;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import androidx.recyclerview.widget.RecyclerView;
 
-import io.agora.openvcall.R;
-import io.agora.openvcall.model.Message;
+import com.mechmocha_chorsipahi.R;
+import com.mechmocha_chorsipahi.model.Message;
+
+import java.util.ArrayList;
 
 public class InChannelMessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<Message> mMsgList;

@@ -2,21 +2,23 @@ package com.mechmocha_chorsipahi.ui.layout;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.mechmocha_chorsipahi.propeller.UserStatusData;
+import com.mechmocha_chorsipahi.propeller.VideoInfoData;
+import com.mechmocha_chorsipahi.propeller.ui.RecyclerItemClickListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 
-import io.agora.propeller.UserStatusData;
-import io.agora.propeller.VideoInfoData;
-import io.agora.propeller.ui.RecyclerItemClickListener;
 
 public class GridVideoViewContainer extends RecyclerView {
 

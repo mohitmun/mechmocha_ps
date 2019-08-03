@@ -2,18 +2,20 @@ package com.mechmocha_chorsipahi.ui.layout;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.mechmocha_chorsipahi.propeller.UserStatusData;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 
-import io.agora.propeller.UserStatusData;
 
 public class GridVideoViewContainerAdapter extends VideoViewAdapter {
 
