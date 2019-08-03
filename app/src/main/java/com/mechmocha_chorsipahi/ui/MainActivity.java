@@ -56,6 +56,7 @@ public class MainActivity extends BaseActivity {
             public void afterTextChanged(Editable s) {
                 boolean isEmpty = TextUtils.isEmpty(s.toString());
                 findViewById(R.id.button_join).setEnabled(!isEmpty);
+                findViewById(R.id.button_create).setEnabled(!isEmpty);
             }
         });
 
@@ -116,12 +117,17 @@ public class MainActivity extends BaseActivity {
     }
 
     public void onClickJoin(View view) {
-        forwardToRoom();
+        forwardToRoom(false);
     }
 
-    public void forwardToRoom() {
+    public void onClickCreate(View view) {
+        forwardToRoom(true);
+    }
+
+    public void forwardToRoom(boolean iscreate) {
         EditText v_channel = (EditText) findViewById(R.id.channel_name);
         String channel = v_channel.getText().toString();
+//        channel = "a";
         vSettings().mChannelName = channel;
 
         EditText v_encryption_key = (EditText) findViewById(R.id.encryption_key);
@@ -131,6 +137,7 @@ public class MainActivity extends BaseActivity {
         Intent i = new Intent(MainActivity.this, CallActivity.class);
         i.putExtra(ConstantApp.ACTION_KEY_CHANNEL_NAME, channel);
         i.putExtra(ConstantApp.ACTION_KEY_ENCRYPTION_KEY, encryption);
+        i.putExtra(ConstantApp.ACTION_KEY_IS_CREATED, iscreate);
         i.putExtra(ConstantApp.ACTION_KEY_ENCRYPTION_MODE, getResources().getStringArray(R.array.encryption_mode_values)[vSettings().mEncryptionModeIndex]);
 
         startActivity(i);

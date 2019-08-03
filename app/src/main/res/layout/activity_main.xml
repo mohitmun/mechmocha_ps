@@ -104,6 +104,21 @@
             android:onClick="onClickJoin"
             android:text="@string/label_join"
             android:textColor="@android:color/white" />
+        <Button
+            android:id="@+id/button_create"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/agora_blue"
+            android:enabled="false"
+            android:onClick="onClickCreate"
+            android:text="Create"
+            android:textColor="@android:color/white" />
 
         <View
             android:layout_width="match_parent"

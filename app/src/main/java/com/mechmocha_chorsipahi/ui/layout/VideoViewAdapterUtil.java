@@ -195,7 +195,7 @@ public class VideoViewAdapterUtil {
             myHolder.mMetaData.setText(ViewUtil.composeVideoInfoString(context, videoInfo));
             myHolder.mVideoInfo.setVisibility(View.VISIBLE);
         } else {
-            myHolder.mVideoInfo.setVisibility(View.GONE);
+//            myHolder.mVideoInfo.setVisibility(View.GONE);
         }
     }
 

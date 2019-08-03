@@ -1,5 +1,6 @@
 package com.mechmocha_chorsipahi.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -8,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,6 +27,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mechmocha_chorsipahi.AGApplication;
 import com.mechmocha_chorsipahi.R;
 import com.mechmocha_chorsipahi.model.AGEventHandler;
 import com.mechmocha_chorsipahi.model.ConstantApp;
@@ -45,10 +48,17 @@ import com.mechmocha_chorsipahi.ui.layout.SmallVideoViewDecoration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
+import io.agora.AgoraAPI;
+import io.agora.AgoraAPIOnlySignal;
+import io.agora.IAgoraAPI;
 import io.agora.rtc.Constants;
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
@@ -80,10 +90,12 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
 
     private InChannelMessageListAdapter mMsgAdapter;
     private ArrayList<Message> mMsgList;
+    boolean isHost;
 
     private SmallVideoViewAdapter mSmallVideoViewAdapter;
 
     private final Handler mUIHandler = new Handler();
+    private String TAG  = "wtf";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +108,13 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
             ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
             ab.setCustomView(R.layout.ard_agora_actionbar_with_title);
         }
+        appid = getString(R.string.agora_app_id);
+        m_agoraAPI = AgoraAPIOnlySignal.getInstance(getApplicationContext(), appid);
+        m_agoraAPI.login2(appid, String.valueOf(AGApplication.myuid), "_no_need_token", 0, "", 5, 1);
+
     }
+    AgoraAPIOnlySignal m_agoraAPI;
+    String appid;
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
@@ -124,6 +142,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
         Intent i = getIntent();
 
         String channelName = i.getStringExtra(ConstantApp.ACTION_KEY_CHANNEL_NAME);
+        isHost = i.getBooleanExtra(ConstantApp.ACTION_KEY_IS_CREATED, false);
 
         // programmatically show channel name
         ActionBar ab = getSupportActionBar();
@@ -172,7 +191,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
 
         initMessageList();
 
-        notifyMessageChanged(new Message(new User(0, null), "start join " + channelName + " as " + (config().mUid & 0xFFFFFFFFL)));
+        notifyMessageChanged(new Message(new User(0, null, isHost), "start join " + channelName + " as " + (config().mUid & 0xFFFFFFFFL)));
 
         worker().joinChannel(channelName, config().mUid);
 
@@ -531,15 +550,95 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
 
     @Override
     public void onUserJoined(final int uid) {
-        log.debug("onUserJoined " + (uid & 0xFFFFFFFFL));
-
+        log.info("mohit - onUserJoined " + (uid & 0xFFFFFFFFL));
+        Log.d("wtf", "on user joined mohit =" + (uid & 0xFFFFFFFFL));
+        long newuid = uid & 0xFFFFFFFFL;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                notifyMessageChanged(new Message(new User(0, null), "user " + (uid & 0xFFFFFFFFL) + " joined"));
+                notifyMessageChanged(new Message(new User(0, null, isHost), "user " + (uid & 0xFFFFFFFFL) + " joined"));
             }
         });
+        if(isHost){
+            Log.d("wtf", "it is host sending message");
+            setupmessage(roles[joincount], newuid);
+            joincount++;
+            myrole = "king";
+        }else{
+            Log.d("wtf", "not host sending message");
+//            int a = rtcEngine().createDataStream(true, true);
+//            rtcEngine().sendStreamMessage(a, "ffsdfdsf".getBytes());
+//            rtcEngine().enableDualStreamMode();
+        }
     }
+    String myrole;
+    int joincount = 0;
+    String[] roles = {"chor", "sipahi", "mantri"};
+    {
+        List<String> strList = Arrays.asList(roles);
+        Collections.shuffle(strList);
+        roles = strList.toArray(new String[strList.size()]);
+    }
+
+    private void setupmessage(String role, long uid) {
+        String appid = getString(R.string.agora_app_id);
+        m_agoraAPI.callbackSet(new AgoraAPI.CallBack() {
+
+            @Override
+            public void onChannelUserJoined(String account, int uid) {
+                super.onChannelUserJoined(account, uid);
+
+            }
+
+
+            @Override
+            public void onMessageInstantReceive(final String account, int uid, final String msg) {
+                Log.i(TAG, "onMessageInstantReceive  account = " + account + " uid = " + uid + " msg = " + msg);
+            }
+
+            @Override
+            public void onMessageChannelReceive(String channelID, final String account, int uid, final String msg) {
+                final long s = Long.parseLong(msg.split(":")[0]);
+                final String message = msg.split(":")[1];
+                Log.i(TAG, "onMessageChannelReceive  account = " + account + " uid = " + s+ " msg = " + msg);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //self message had added
+                        if (AGApplication.myuid == s) {
+                            myrole = message;
+                        }
+                        Log.d(TAG, "I'm becoming " + message + " myuid:" + AGApplication.myuid + " receivedfor: "+ s);
+                    }
+                });
+            }
+
+            @Override
+            public void onMessageSendSuccess(String messageID) {
+
+            }
+
+            @Override
+            public void onMessageSendError(String messageID, int ecode) {
+
+            }
+
+            @Override
+            public void onError(String name, int ecode, String desc) {
+                Log.i(TAG, "onError  name = " + name + " ecode = " + ecode + " desc = " + desc);
+            }
+
+            @Override
+            public void onLog(String txt) {
+                super.onLog(txt);
+            }
+        });
+        m_agoraAPI.channelJoin("channelName");
+        m_agoraAPI.messageChannelSend("channelName", uid + ":" + role, "");
+
+
+    }
+
 
     @Override
     public void onFirstRemoteVideoDecoded(int uid, int width, int height, int elapsed) {
@@ -579,7 +678,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
                     switchToSmallVideoView(bigBgUid);
                 }
 
-                notifyMessageChanged(new Message(new User(0, null), "video from user " + (uid & 0xFFFFFFFFL) + " decoded"));
+                notifyMessageChanged(new Message(new User(0, null, isHost), "video from user " + (uid & 0xFFFFFFFFL) + " decoded"));
             }
         });
     }
@@ -595,7 +694,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
                     return;
                 }
 
-                notifyMessageChanged(new Message(new User(0, null), "join " + channel + " success as " + (uid & 0xFFFFFFFFL) + " in " + elapsed + "ms"));
+                notifyMessageChanged(new Message(new User(0, null, isHost), "join " + channel + " success as " + (uid & 0xFFFFFFFFL) + " in " + elapsed + "ms"));
 
                 SurfaceView local = mUidsList.remove(0);
 
@@ -709,7 +808,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
 
                 if (subType == ConstantApp.AppError.NO_CONNECTION_ERROR) {
                     String msg = getString(R.string.msg_connection_error);
-                    notifyMessageChanged(new Message(new User(0, null), msg));
+                    notifyMessageChanged(new Message(new User(0, null, isHost), msg));
                     showLongToast(msg);
                 }
 
@@ -719,7 +818,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
 
                 peerUid = (Integer) data[0];
                 final byte[] content = (byte[]) data[1];
-                notifyMessageChanged(new Message(new User(peerUid, String.valueOf(peerUid)), new String(content)));
+                notifyMessageChanged(new Message(new User(peerUid, String.valueOf(peerUid), isHost), new String(content)));
 
                 break;
 
@@ -727,7 +826,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
                 int error = (int) data[0];
                 String description = (String) data[1];
 
-                notifyMessageChanged(new Message(new User(0, null), error + " " + description));
+                notifyMessageChanged(new Message(new User(0, null, isHost), error + " " + description));
 
                 break;
             }
@@ -770,7 +869,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
                     switchToSmallVideoView(bigBgUid);
                 }
 
-                notifyMessageChanged(new Message(new User(0, null), "user " + (uid & 0xFFFFFFFFL) + " left"));
+                notifyMessageChanged(new Message(new User(0, null, isHost), "user " + (uid & 0xFFFFFFFFL) + " left"));
             }
         });
     }

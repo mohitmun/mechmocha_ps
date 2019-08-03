@@ -147,7 +147,7 @@ public class WorkerThread extends Thread {
             accessToken = null; // default, no token
         }
 
-        mRtcEngine.joinChannel(accessToken, channel, "OpenVCall", uid);
+        mRtcEngine.joinChannel(accessToken, channel, "info", uid);
 
         mEngineConfig.mChannel = channel;
 
@@ -248,6 +248,7 @@ public class WorkerThread extends Thread {
                 log.error(Log.getStackTraceString(e));
                 throw new RuntimeException("NEED TO check rtc sdk init fatal error\n" + Log.getStackTraceString(e));
             }
+
             mRtcEngine.setChannelProfile(Constants.CHANNEL_PROFILE_COMMUNICATION);
             mRtcEngine.enableVideo();
             mRtcEngine.enableAudioVolumeIndication(200, 3); // 200 ms

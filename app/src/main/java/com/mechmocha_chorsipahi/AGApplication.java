@@ -7,7 +7,14 @@ import com.mechmocha_chorsipahi.model.WorkerThread;
 
 public class AGApplication extends Application {
 
+    public static long myuid;
     private WorkerThread mWorkerThread;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+    }
 
     public synchronized void initWorkerThread() {
         if (mWorkerThread == null) {

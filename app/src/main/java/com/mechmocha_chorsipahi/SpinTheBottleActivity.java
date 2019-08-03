@@ -239,7 +239,6 @@ public class SpinTheBottleActivity extends AppCompatActivity implements OnClickL
 
             SpinTheBottleActivity r15 = this;
             SpinTheBottleActivity r8 = r15;
-            java.lang.String r0 = "com.whatsapp";
             AppPreferences r1 = AppPreferences.getInstance(r15);
             r1.incrementCat5Count();
 //            int r1 = r16.getId();
@@ -251,11 +250,11 @@ public class SpinTheBottleActivity extends AppCompatActivity implements OnClickL
             int r7 = 1;
             int r9 = 0;
 //            if (r3 != 0) goto L_0x0027
-//            int[] r2 = r8.combo1
+//            int[] r2 = r8.combo1;
 //            r3 = r2[r9];
-//            r4 = r2[r7]
-//            r10 = r2[r5]
-//            r2 = r2[r6]
+//            r4 = r2[r7];
+//            r10 = r2[r5];
+//            r2 = r2[r6];
 //        L_0x0023:
 //            r14 = r10
 //            r10 = r3
@@ -423,7 +422,6 @@ public class SpinTheBottleActivity extends AppCompatActivity implements OnClickL
             rr1.setVisibility(r9);
             android.content.Context context = r15.getApplicationContext();
             com.bumptech.glide.RequestManager rm = com.bumptech.glide.Glide.with(rr1);
-            java.lang.Integer rr0 = java.lang.Integer.valueOf(r0);
 //            RequestManager rr01 = rm.load(rr0);
 //            android.widget.ImageView rrr1 = r8.center_card_four;
 //            rr01.into(r1);
@@ -435,7 +433,7 @@ public class SpinTheBottleActivity extends AppCompatActivity implements OnClickL
     }
 
     public void callShowChttiLogic() {
-        this.card_four_img.setVisibility(0);
+        this.card_four_img.setVisibility(View.VISIBLE);
         CountDownTimer r2 = new CountDownTimer(1000, 500) {
             public void onTick(long j) {
                 TextView access$200 = SpinTheBottleActivity.this.coutdown;
@@ -446,13 +444,13 @@ public class SpinTheBottleActivity extends AppCompatActivity implements OnClickL
             }
 
             public void onFinish() {
-                SpinTheBottleActivity.this.center_card_one.setVisibility(8);
-                SpinTheBottleActivity.this.center_card_two.setVisibility(8);
-                SpinTheBottleActivity.this.center_card_three.setVisibility(8);
-                SpinTheBottleActivity.this.center_card_four.setVisibility(8);
-                SpinTheBottleActivity.this.card_one_img.setVisibility(0);
-                SpinTheBottleActivity.this.card_two_img.setVisibility(0);
-                SpinTheBottleActivity.this.card_three_img.setVisibility(0);
+                SpinTheBottleActivity.this.center_card_one.setVisibility(View.GONE);
+                SpinTheBottleActivity.this.center_card_two.setVisibility(View.GONE);
+                SpinTheBottleActivity.this.center_card_three.setVisibility(View.GONE);
+                SpinTheBottleActivity.this.center_card_four.setVisibility(View.GONE);
+                SpinTheBottleActivity.this.card_one_img.setVisibility(View.VISIBLE);
+                SpinTheBottleActivity.this.card_two_img.setVisibility(View.VISIBLE);
+                SpinTheBottleActivity.this.card_three_img.setVisibility(View.VISIBLE);
                 if (SpinTheBottleActivity.this.gameCount % 4 == 0) {
                     SpinTheBottleActivity spinTheBottleActivity = SpinTheBottleActivity.this;
                     spinTheBottleActivity.showChhti(spinTheBottleActivity.combo1[0], SpinTheBottleActivity.this.combo1[1], SpinTheBottleActivity.this.combo1[2], SpinTheBottleActivity.this.combo1[3]);
@@ -533,8 +531,8 @@ public class SpinTheBottleActivity extends AppCompatActivity implements OnClickL
         this.center_card_four = (ImageView) findViewById(R.id.center_card_four);
         this.center_card_five = (ImageView) findViewById(R.id.center_card_five);
         this.center_card_six = (ImageView) findViewById(R.id.center_card_six);
-        this.center_card_five.setVisibility(8);
-        this.center_card_six.setVisibility(8);
+        this.center_card_five.setVisibility(View.GONE);
+        this.center_card_six.setVisibility(View.GONE);
         this.one = (ImageView) findViewById(R.id.one);
         this.two = (ImageView) findViewById(R.id.two);
         this.three = (ImageView) findViewById(R.id.three);
@@ -551,14 +549,14 @@ public class SpinTheBottleActivity extends AppCompatActivity implements OnClickL
         this.two_point = (TextView) findViewById(R.id.two_points);
         this.three_point = (TextView) findViewById(R.id.three_points);
         this.four_point = (TextView) findViewById(R.id.four_points);
-        this.one.setVisibility(0);
-        this.two.setVisibility(0);
-        this.three.setVisibility(0);
-        this.four.setVisibility(0);
-        this.one_text.setVisibility(0);
-        this.two_text.setVisibility(0);
-        this.three_text.setVisibility(0);
-        this.four_text.setVisibility(0);
+        this.one.setVisibility(View.VISIBLE);
+        this.two.setVisibility(View.VISIBLE);
+        this.three.setVisibility(View.VISIBLE);
+        this.four.setVisibility(View.VISIBLE);
+        this.one_text.setVisibility(View.VISIBLE);
+        this.two_text.setVisibility(View.VISIBLE);
+        this.three_text.setVisibility(View.VISIBLE);
+        this.four_text.setVisibility(View.VISIBLE);
         this.player1_images = getResources().obtainTypedArray(R.array.player1_images);
         this.player2_images = getResources().obtainTypedArray(R.array.player2_images);
         this.player3_images = getResources().obtainTypedArray(R.array.player3_images);
@@ -597,26 +595,26 @@ public class SpinTheBottleActivity extends AppCompatActivity implements OnClickL
         Glide.with(getApplicationContext()).load(valueOf2).into(this.center_card_two);
         Glide.with(getApplicationContext()).load(valueOf2).into(this.center_card_three);
         Glide.with(getApplicationContext()).load(valueOf2).into(this.center_card_four);
-        this.center_card_one.setVisibility(0);
-        this.center_card_two.setVisibility(0);
-        this.center_card_three.setVisibility(0);
-        this.center_card_four.setVisibility(0);
+        this.center_card_one.setVisibility(View.VISIBLE);
+        this.center_card_two.setVisibility(View.VISIBLE);
+        this.center_card_three.setVisibility(View.VISIBLE);
+        this.center_card_four.setVisibility(View.VISIBLE);
         String str = "0 PTS";
         this.one_point.setText(str);
         this.two_point.setText(str);
         this.three_point.setText(str);
         this.four_point.setText(str);
         this.willTheyKiss.setText("निचे से एक चिट्टी चुने !");
-        this.card_one_img.setVisibility(8);
-        this.card_two_img.setVisibility(8);
-        this.card_three_img.setVisibility(8);
-        this.card_four_img.setVisibility(8);
+        this.card_one_img.setVisibility(View.GONE);
+        this.card_two_img.setVisibility(View.GONE);
+        this.card_three_img.setVisibility(View.GONE);
+        this.card_four_img.setVisibility(View.GONE);
         this.card1.setBackgroundColor(0);
         this.card2.setBackgroundColor(0);
         this.card3.setBackgroundColor(0);
         this.card4.setBackgroundColor(0);
-        this.willTheyKiss.setVisibility(0);
-        this.coutdown.setVisibility(0);
+        this.willTheyKiss.setVisibility(View.VISIBLE);
+        this.coutdown.setVisibility(View.VISIBLE);
     }
 
     private void rotate() {
@@ -879,8 +877,8 @@ public class SpinTheBottleActivity extends AppCompatActivity implements OnClickL
         int i6 = i2;
         int i7 = i3;
         int i8 = i4;
-        this.center_card_five.setVisibility(0);
-        this.center_card_six.setVisibility(0);
+        this.center_card_five.setVisibility(View.VISIBLE);
+        this.center_card_six.setVisibility(View.VISIBLE);
         if (i5 == 2 || i5 == 4) {
             int player1ChangeCount = SpinTheBottleAppPreferences.getInstance(getApplicationContext()).getPlayer1ChangeCount() % this.img_count;
             if (this.maleIndexes.contains(Integer.valueOf(0))) {
@@ -958,10 +956,10 @@ public class SpinTheBottleActivity extends AppCompatActivity implements OnClickL
         } else if (i8 == 4) {
             this.four_point.setText(str2);
         }
-        this.center_card_one.setVisibility(0);
-        this.center_card_two.setVisibility(0);
-        this.center_card_three.setVisibility(0);
-        this.center_card_four.setVisibility(0);
+        this.center_card_one.setVisibility(View.VISIBLE);
+        this.center_card_two.setVisibility(View.VISIBLE);
+        this.center_card_three.setVisibility(View.VISIBLE);
+        this.center_card_four.setVisibility(View.VISIBLE);
         Glide.with(getApplicationContext()).load(Integer.valueOf(R.drawable.newarrow)).into(this.center_card_one);
         Glide.with(getApplicationContext()).load(Integer.valueOf(R.drawable.newarrow)).into(this.center_card_two);
         if (i8 != 3) {
@@ -980,7 +978,7 @@ public class SpinTheBottleActivity extends AppCompatActivity implements OnClickL
                     Integer valueOf = Integer.valueOf(R.drawable.newarrow);
                     Integer valueOf2 = Integer.valueOf(R.drawable.secondarrow);
                     if (j2 == 0) {
-                        SpinTheBottleActivity.this.center_card_one.setVisibility(0);
+                        SpinTheBottleActivity.this.center_card_one.setVisibility(View.VISIBLE);
                         Glide.with(SpinTheBottleActivity.this.getApplicationContext()).load(valueOf).into(SpinTheBottleActivity.this.center_card_one);
                         Glide.with(SpinTheBottleActivity.this.getApplicationContext()).load(valueOf2).into(SpinTheBottleActivity.this.center_card_two);
                         if (i9 == 3) {
@@ -998,7 +996,7 @@ public class SpinTheBottleActivity extends AppCompatActivity implements OnClickL
                         }
                         return;
                     }
-                    SpinTheBottleActivity.this.center_card_two.setVisibility(0);
+                    SpinTheBottleActivity.this.center_card_two.setVisibility(View.VISIBLE);
                     Glide.with(SpinTheBottleActivity.this.getApplicationContext()).load(valueOf2).into(SpinTheBottleActivity.this.center_card_one);
                     Glide.with(SpinTheBottleActivity.this.getApplicationContext()).load(valueOf).into(SpinTheBottleActivity.this.center_card_two);
                     String str = "#FFFAFA";
@@ -1103,8 +1101,8 @@ public class SpinTheBottleActivity extends AppCompatActivity implements OnClickL
                             }
                             Glide.with(SpinTheBottleActivity.this.getApplicationContext()).load(valueOf).into(SpinTheBottleActivity.this.center_card_one);
                             Glide.with(SpinTheBottleActivity.this.getApplicationContext()).load(valueOf).into(SpinTheBottleActivity.this.center_card_two);
-                            SpinTheBottleActivity.this.center_card_one.setVisibility(0);
-                            SpinTheBottleActivity.this.center_card_two.setVisibility(0);
+                            SpinTheBottleActivity.this.center_card_one.setVisibility(View.VISIBLE);
+                            SpinTheBottleActivity.this.center_card_two.setVisibility(View.VISIBLE);
                             SpinTheBottleActivity.this.willTheyKiss.setBackgroundColor(-16711936);
                             SpinTheBottleActivity.this.reusableCode(nextInt, i3, i, i2);
                         }

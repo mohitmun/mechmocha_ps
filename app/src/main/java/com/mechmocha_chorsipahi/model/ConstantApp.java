@@ -41,6 +41,8 @@ public class ConstantApp {
     }
 
     public static final String ACTION_KEY_CHANNEL_NAME = "ecHANEL";
+    public static final String ACTION_KEY_IS_CREATED = "iscreated";
+
     public static final String ACTION_KEY_ENCRYPTION_KEY = "xdL_encr_key_";
     public static final String ACTION_KEY_ENCRYPTION_MODE = "tOK_edsx_Mode";
 

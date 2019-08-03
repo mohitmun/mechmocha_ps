@@ -1,6 +1,9 @@
 package com.mechmocha_chorsipahi.model;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.mechmocha_chorsipahi.AGApplication;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -172,7 +175,7 @@ public class MyEngineEventHandler {
 
         @Override
         public void onStreamMessage(int uid, int streamId, byte[] data) {
-            log.debug("onStreamMessage " + (uid & 0xFFFFFFFFL) + " " + streamId + " " + Arrays.toString(data));
+            Log.d("wtf", "mohit on stream message- " + (uid & 0xFFFFFFFFL) + " " + streamId + " " + Arrays.toString(data));
 
             Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
             while (it.hasNext()) {
@@ -184,7 +187,7 @@ public class MyEngineEventHandler {
         }
 
         public void onStreamMessageError(int uid, int streamId, int error, int missed, int cached) {
-            log.warn("onStreamMessageError " + (uid & 0xFFFFFFFFL) + " " + streamId + " " + error + " " + missed + " " + cached);
+            Log.d("wtf",  "mohit" + (uid & 0xFFFFFFFFL) + " " + streamId + " " + error + " " + missed + " " + cached);
 
             Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
             while (it.hasNext()) {
@@ -210,10 +213,10 @@ public class MyEngineEventHandler {
 
         @Override
         public void onJoinChannelSuccess(String channel, int uid, int elapsed) {
-            log.debug("onJoinChannelSuccess " + channel + " " + (uid & 0xFFFFFFFFL) + "(" + uid + ") " + elapsed);
+            Log.d("wtf", "onJoinChannelSuccess " + channel + " " + (uid & 0xFFFFFFFFL) + "(" + uid + ") " + elapsed);
 
             mConfig.mUid = uid;
-
+            AGApplication.myuid = uid & 0xFFFFFFFFL;
             Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
             while (it.hasNext()) {
                 AGEventHandler handler = it.next();
