@@ -3,13 +3,18 @@ package com.mechmocha_chorsipahi.ui.layout;
 import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mechmocha_chorsipahi.AGApplication;
+import com.mechmocha_chorsipahi.R;
 import com.mechmocha_chorsipahi.propeller.UserStatusData;
+import com.mechmocha_chorsipahi.ui.CallActivity;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,6 +87,41 @@ public class GridVideoViewContainerAdapter extends VideoViewAdapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+       VideoUserStatusHolder myHolder = (VideoUserStatusHolder) holder;
+       final UserStatusData user = mUsers.get(position);
+        if(user.getRole() != null) {
+            switch (user.getRole()) {
+                case "king":
+                    myHolder.role_pic.setImageResource(R.drawable.king);
+                    break;
+                case "chor":
+                    myHolder.role_pic.setImageResource(R.drawable.chor);
+                    break;
+                case "sipahi":
+                    myHolder.role_pic.setImageResource(R.drawable.sipahi);
+                    break;
+                case "mantri":
+                    myHolder.role_pic.setImageResource(R.drawable.mantri);
+
+                    break;
+            }
+            if(user.getRole().equals("chor") || user.getRole().equals("sipahi")){
+                myHolder.role_pic.setImageResource(R.drawable.default_avata2);
+            }
+            Log.d("wft", "user getrole, id :" + user.getLongUid());
+        }
+//        if(!AGApplication.reveal && (user.getRole().equals("")){
+//            myHolder.role_pic.setImageResource(R.drawable.default_avata2);
+//        }
+
+        if(AGApplication.myrole() != null && AGApplication.myrole().equals("king")){
+            myHolder.role_pic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((CallActivity)mContext).sendmessage(user.getRole().equals("chor") ? "correct" : "wrong");
+                }
+            });
+        }
         super.onBindViewHolder(holder, position);
     }
 

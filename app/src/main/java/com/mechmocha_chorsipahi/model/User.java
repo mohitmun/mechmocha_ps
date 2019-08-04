@@ -1,13 +1,12 @@
 package com.mechmocha_chorsipahi.model;
 
 public class User {
-    public User(int uid, String name, boolean isHost) {
+    public User(long uid, String name) {
         this.uid = uid;
         this.name = name;
-        this.role = isHost ? "king" : null;
     }
 
-    public final int uid;
+    public final long uid;
     public final String name;
     public String role;
 }

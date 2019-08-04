@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.mechmocha_chorsipahi.AGApplication;
+import com.mechmocha_chorsipahi.ui.CallActivity;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -217,6 +218,7 @@ public class MyEngineEventHandler {
 
             mConfig.mUid = uid;
             AGApplication.myuid = uid & 0xFFFFFFFFL;
+            AGApplication.role_map.put(AGApplication.myuid, "king");
             Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
             while (it.hasNext()) {
                 AGEventHandler handler = it.next();

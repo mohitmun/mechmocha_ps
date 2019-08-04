@@ -2,6 +2,8 @@ package com.mechmocha_chorsipahi.propeller;
 
 import android.view.SurfaceView;
 
+import com.mechmocha_chorsipahi.AGApplication;
+
 public class UserStatusData {
     public static final int DEFAULT_STATUS = 0;
     public static final int VIDEO_MUTED = 1;
@@ -37,6 +39,14 @@ public class UserStatusData {
 
     public VideoInfoData getVideoInfoData() {
         return mVideoInfo;
+    }
+
+    public String getRole(){
+        return AGApplication.role_map.get(mUid & 0xFFFFFFFFL);
+    }
+
+    public long getLongUid(){
+        return mUid & 0xFFFFFFFFL;
     }
 
     @Override

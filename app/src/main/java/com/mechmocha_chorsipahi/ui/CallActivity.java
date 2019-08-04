@@ -68,8 +68,8 @@ import io.agora.rtc.video.VideoEncoderConfiguration;
 public class CallActivity extends BaseActivity implements DuringCallEventHandler {
 
     public static final int LAYOUT_TYPE_DEFAULT = 0;
-    public static final int LAYOUT_TYPE_SMALL = 1;
-
+//    public static final int LAYOUT_TYPE_SMALL = 1;
+//
     private final static Logger log = LoggerFactory.getLogger(CallActivity.class);
 
     // should only be modified under UI thread
@@ -106,12 +106,12 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-            ab.setCustomView(R.layout.ard_agora_actionbar_with_title);
+//            ab.setCustomView(R.layout.ard_agora_actionbar_with_title);
         }
         appid = getString(R.string.agora_app_id);
         m_agoraAPI = AgoraAPIOnlySignal.getInstance(getApplicationContext(), appid);
         m_agoraAPI.login2(appid, String.valueOf(AGApplication.myuid), "_no_need_token", 0, "", 5, 1);
-
+        getSupportActionBar().hide();
     }
     AgoraAPIOnlySignal m_agoraAPI;
     String appid;
@@ -145,11 +145,11 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
         isHost = i.getBooleanExtra(ConstantApp.ACTION_KEY_IS_CREATED, false);
 
         // programmatically show channel name
-        ActionBar ab = getSupportActionBar();
-        if (ab != null) {
-            TextView channelNameView = ((TextView) findViewById(R.id.ovc_page_title));
-            channelNameView.setText(channelName);
-        }
+//        ActionBar ab = getSupportActionBar();
+//        if (ab != null) {
+//            TextView channelNameView = ((TextView) findViewById(R.id.ovc_page_title));
+//            channelNameView.setText(channelName);
+//        }
 
         // programmatically layout ui below of status bar/action bar
         LinearLayout eopsContainer = findViewById(R.id.extra_ops_container);
@@ -162,22 +162,22 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
         doConfigEngine(encryptionKey, encryptionMode);
 
         mGridVideoViewContainer = (GridVideoViewContainer) findViewById(R.id.grid_video_view_container);
-        mGridVideoViewContainer.setItemEventHandler(new RecyclerItemClickListener.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(View view, int position) {
-                onBigVideoViewClicked(view, position);
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-            }
-
-            @Override
-            public void onItemDoubleClick(View view, int position) {
-                onBigVideoViewDoubleClicked(view, position);
-            }
-        });
+//        mGridVideoViewContainer.setItemEventHandler(new RecyclerItemClickListener.OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                onBigVideoViewClicked(view, position);
+//            }
+//
+//            @Override
+//            public void onItemLongClick(View view, int position) {
+//            }
+//
+//            @Override
+//            public void onItemDoubleClick(View view, int position) {
+//                onBigVideoViewDoubleClicked(view, position);
+//            }
+//        });
 
         SurfaceView surfaceV = RtcEngine.CreateRendererView(getApplicationContext());
         rtcEngine().setupLocalVideo(new VideoCanvas(surfaceV, VideoCanvas.RENDER_MODE_HIDDEN, 0));
@@ -191,7 +191,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
 
         initMessageList();
 
-        notifyMessageChanged(new Message(new User(0, null, isHost), "start join " + channelName + " as " + (config().mUid & 0xFFFFFFFFL)));
+        notifyMessageChanged(new Message(new User(0, null), "start join " + channelName + " as " + (config().mUid & 0xFFFFFFFFL)));
 
         worker().joinChannel(channelName, config().mUid);
 
@@ -503,15 +503,16 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
         status.put(targetUid, hide ? UserStatusData.VIDEO_MUTED : UserStatusData.DEFAULT_STATUS);
         if (mLayoutType == LAYOUT_TYPE_DEFAULT) {
             mGridVideoViewContainer.notifyUiChanged(mUidsList, targetUid, status, null);
-        } else if (mLayoutType == LAYOUT_TYPE_SMALL) {
-            UserStatusData bigBgUser = mGridVideoViewContainer.getItem(0);
-            if (bigBgUser.mUid == targetUid) { // big background is target view
-                mGridVideoViewContainer.notifyUiChanged(mUidsList, targetUid, status, null);
-            } else { // find target view in small video view list
-                log.warn("SmallVideoViewAdapter call notifyUiChanged " + mUidsList + " " + (bigBgUser.mUid & 0xFFFFFFFFL) + " target: " + (targetUid & 0xFFFFFFFFL) + "==" + targetUid + " " + status);
-                mSmallVideoViewAdapter.notifyUiChanged(mUidsList, bigBgUser.mUid, status, null);
-            }
         }
+//        else if (mLayoutType == LAYOUT_TYPE_SMALL) {
+//            UserStatusData bigBgUser = mGridVideoViewContainer.getItem(0);
+//            if (bigBgUser.mUid == targetUid) { // big background is target view
+//                mGridVideoViewContainer.notifyUiChanged(mUidsList, targetUid, status, null);
+//            } else { // find target view in small video view list
+//                log.warn("SmallVideoViewAdapter call notifyUiChanged " + mUidsList + " " + (bigBgUser.mUid & 0xFFFFFFFFL) + " target: " + (targetUid & 0xFFFFFFFFL) + "==" + targetUid + " " + status);
+//                mSmallVideoViewAdapter.notifyUiChanged(mUidsList, bigBgUser.mUid, status, null);
+//            }
+//        }
     }
 
     public void onVoiceMuteClicked(View view) {
@@ -556,14 +557,13 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                notifyMessageChanged(new Message(new User(0, null, isHost), "user " + (uid & 0xFFFFFFFFL) + " joined"));
+                notifyMessageChanged(new Message(new User(0, null), "user " + (uid & 0xFFFFFFFFL) + " joined"));
             }
         });
         if(isHost){
             Log.d("wtf", "it is host sending message");
-            setupmessage(roles[joincount], newuid);
-            joincount++;
-            myrole = "king";
+            sendmessage(newuid + ":" + roles[joincount++]);
+
         }else{
             Log.d("wtf", "not host sending message");
 //            int a = rtcEngine().createDataStream(true, true);
@@ -580,7 +580,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
         roles = strList.toArray(new String[strList.size()]);
     }
 
-    private void setupmessage(String role, long uid) {
+    public void sendmessage(String message) {
         String appid = getString(R.string.agora_app_id);
         m_agoraAPI.callbackSet(new AgoraAPI.CallBack() {
 
@@ -598,6 +598,10 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
 
             @Override
             public void onMessageChannelReceive(String channelID, final String account, int uid, final String msg) {
+                if(msg.equals("correct") || msg.equals("wrong")){
+                    notifyMessageChanged(new Message(new User(uid, "King"), msg + " guess!"));
+                    return;
+                }
                 final long s = Long.parseLong(msg.split(":")[0]);
                 final String message = msg.split(":")[1];
                 Log.i(TAG, "onMessageChannelReceive  account = " + account + " uid = " + s+ " msg = " + msg);
@@ -605,10 +609,17 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
                     @Override
                     public void run() {
                         //self message had added
-                        if (AGApplication.myuid == s) {
-                            myrole = message;
-                        }
+                        //
+                        AGApplication.role_map.put(s, message);
                         Log.d(TAG, "I'm becoming " + message + " myuid:" + AGApplication.myuid + " receivedfor: "+ s);
+                        if(AGApplication.role_map.keySet().size() > 3){
+                            for(long uid: AGApplication.role_map.keySet()){
+                                if(AGApplication.role_map.get(uid).equals("king")){
+                                    notifyMessageChanged(new Message(new User(uid, "King"), "Mantri chor ko pakdo"));
+                                }
+
+                            }
+                        }
                     }
                 });
             }
@@ -634,7 +645,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
             }
         });
         m_agoraAPI.channelJoin("channelName");
-        m_agoraAPI.messageChannelSend("channelName", uid + ":" + role, "");
+        m_agoraAPI.messageChannelSend("channelName", message, "");
 
 
     }
@@ -678,7 +689,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
                     switchToSmallVideoView(bigBgUid);
                 }
 
-                notifyMessageChanged(new Message(new User(0, null, isHost), "video from user " + (uid & 0xFFFFFFFFL) + " decoded"));
+                notifyMessageChanged(new Message(new User(0, null), "video from user " + (uid & 0xFFFFFFFFL) + " decoded"));
             }
         });
     }
@@ -694,7 +705,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
                     return;
                 }
 
-                notifyMessageChanged(new Message(new User(0, null, isHost), "join " + channel + " success as " + (uid & 0xFFFFFFFFL) + " in " + elapsed + "ms"));
+                notifyMessageChanged(new Message(new User(0, null), "join " + channel + " success as " + (uid & 0xFFFFFFFFL) + " in " + elapsed + "ms"));
 
                 SurfaceView local = mUidsList.remove(0);
 
@@ -808,7 +819,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
 
                 if (subType == ConstantApp.AppError.NO_CONNECTION_ERROR) {
                     String msg = getString(R.string.msg_connection_error);
-                    notifyMessageChanged(new Message(new User(0, null, isHost), msg));
+                    notifyMessageChanged(new Message(new User(0, null), msg));
                     showLongToast(msg);
                 }
 
@@ -818,7 +829,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
 
                 peerUid = (Integer) data[0];
                 final byte[] content = (byte[]) data[1];
-                notifyMessageChanged(new Message(new User(peerUid, String.valueOf(peerUid), isHost), new String(content)));
+                notifyMessageChanged(new Message(new User(peerUid, String.valueOf(peerUid)), new String(content)));
 
                 break;
 
@@ -826,7 +837,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
                 int error = (int) data[0];
                 String description = (String) data[1];
 
-                notifyMessageChanged(new Message(new User(0, null, isHost), error + " " + description));
+                notifyMessageChanged(new Message(new User(0, null), error + " " + description));
 
                 break;
             }
@@ -869,7 +880,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
                     switchToSmallVideoView(bigBgUid);
                 }
 
-                notifyMessageChanged(new Message(new User(0, null, isHost), "user " + (uid & 0xFFFFFFFFL) + " left"));
+                notifyMessageChanged(new Message(new User(0, null), "user " + (uid & 0xFFFFFFFFL) + " left"));
             }
         });
     }
@@ -918,7 +929,7 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
 
         bindToSmallVideoView(bigBgUid);
 
-        mLayoutType = LAYOUT_TYPE_SMALL;
+//        mLayoutType = LAYOUT_TYPE_SMALL;
 
         requestRemoteStreamType(mUidsList.size());
     }
@@ -951,22 +962,22 @@ public class CallActivity extends BaseActivity implements DuringCallEventHandler
         }
         recycler.addItemDecoration(new SmallVideoViewDecoration());
         recycler.setAdapter(mSmallVideoViewAdapter);
-        recycler.addOnItemTouchListener(new RecyclerItemClickListener(getBaseContext(), new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-
-            }
-
-            @Override
-            public void onItemLongClick(View view, int position) {
-
-            }
-
-            @Override
-            public void onItemDoubleClick(View view, int position) {
-                onSmallVideoViewDoubleClicked(view, position);
-            }
-        }));
+//        recycler.addOnItemTouchListener(new RecyclerItemClickListener(getBaseContext(), new RecyclerItemClickListener.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//
+//            }
+//
+//            @Override
+//            public void onItemLongClick(View view, int position) {
+//
+//            }
+//
+//            @Override
+//            public void onItemDoubleClick(View view, int position) {
+//                onSmallVideoViewDoubleClicked(view, position);
+//            }
+//        }));
 
         recycler.setDrawingCacheEnabled(true);
         recycler.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_AUTO);

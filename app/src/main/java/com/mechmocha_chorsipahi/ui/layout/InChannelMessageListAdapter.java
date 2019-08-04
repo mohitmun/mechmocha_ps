@@ -36,11 +36,11 @@ public class InChannelMessageListAdapter extends RecyclerView.Adapter<RecyclerVi
 
         MessageHolder myHolder = (MessageHolder) holder;
         String sender = msg.getSender().name;
-        if (TextUtils.isEmpty(sender)) {
-            myHolder.itemView.setBackgroundResource(R.drawable.rounded_bg_blue);
-        } else {
+//        if (TextUtils.isEmpty(sender)) {
+//            myHolder.itemView.setBackgroundResource(R.drawable.rounded_bg_blue);
+//        } else {
             myHolder.itemView.setBackgroundResource(R.drawable.rounded_bg);
-        }
+//        }
         myHolder.mMsgContent.setText(msg.getContent());
     }
 

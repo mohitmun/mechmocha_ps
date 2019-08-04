@@ -54,18 +54,18 @@ public class VideoEncResolutionAdapter extends RecyclerView.Adapter {
 
             mTextResolution = (TextView) itemView.findViewById(R.id.video_enc_resolution);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mSelectedIdx = getLayoutPosition();
-                    notifyDataSetChanged();
-
-                    SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putInt(ConstantApp.PrefManager.PREF_PROPERTY_VIDEO_ENC_RESOLUTION, mSelectedIdx);
-                    editor.apply();
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    mSelectedIdx = getLayoutPosition();
+//                    notifyDataSetChanged();
+//
+//                    SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
+//                    SharedPreferences.Editor editor = pref.edit();
+//                    editor.putInt(ConstantApp.PrefManager.PREF_PROPERTY_VIDEO_ENC_RESOLUTION, mSelectedIdx);
+//                    editor.apply();
+//                }
+//            });
         }
     }
 }

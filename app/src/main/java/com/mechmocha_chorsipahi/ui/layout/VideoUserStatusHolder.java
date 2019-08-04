@@ -20,6 +20,8 @@ public class VideoUserStatusHolder extends RecyclerView.ViewHolder {
 
     public final TextView mMetaData;
 
+    public  final ImageView role_pic;
+
     public VideoUserStatusHolder(View v) {
         super(v);
 
@@ -30,5 +32,6 @@ public class VideoUserStatusHolder extends RecyclerView.ViewHolder {
         mVideoInfo = (LinearLayout) v.findViewById(R.id.video_info_container);
 
         mMetaData = (TextView) v.findViewById(R.id.video_info_metadata);
+        role_pic = (ImageView) v.findViewById(R.id.role_pic);
     }
 }
